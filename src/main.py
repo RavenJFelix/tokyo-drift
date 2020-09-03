@@ -25,22 +25,22 @@ import vectorz as vec
 #         print("fuck fuck fuck I hope this works")
 # 
 
-#class Example(tk.Frame):
-#
-#    def __init__(self, master=None):
-#        super().__init__(master)
-#        self.initUI()
-#
-#    def initUI(self):
-#        self.master.title("Lines")
-#        self.pack(fill=tk.BOTH, expand=1)
-#
-#        canvas = tk.Canvas(self)
-#        canvas.create_line(15, 15, 200, 25)
-#        canvas.create_line(300, 25, 300, 200, dash=(4, 2))
-#        canvas.create_rectangle(30, 10, 100, 100, fill='blue')
-#
-#        canvas.pack(fill=tk.BOTH, expand=1)
+class Example(tk.Frame):
+
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.initUI()
+
+    def initUI(self):
+        self.master.title("Lines")
+        self.pack(fill=tk.BOTH, expand=1)
+
+        canvas = tk.Canvas(self)
+        canvas.create_line(15, 15, 200, 25)
+        canvas.create_line(300, 25, 300, 200, dash=(4, 2))
+        canvas.create_rectangle(30, 10, 100, 100, fill='blue')
+
+        canvas.pack(fill=tk.BOTH, expand=1)
 
 
 def main():
@@ -49,7 +49,7 @@ def main():
     robot = r.Robot(vec.Vec2d(0, 0), robo_graphics)
     # robot.draw()
     # print(robot._generate_body_points()[1])
-    # ex = Example(master=root)
+    ex = Example(master=root)
 
     # root.configure(bg='white')
     # root.geometry("400x250")
