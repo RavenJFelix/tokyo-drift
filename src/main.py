@@ -1,4 +1,6 @@
 import tkinter as tk
+import robot as r
+import vectorz as vec
 
 
 class Application(tk.Frame):
@@ -43,8 +45,11 @@ class Example(tk.Frame):
 
 def main():
     root = tk.Tk()
-    ex = Example(master=root)
-    root.configure(bg='blue')
+    robo_graphics = r.RobotGraphics(root)
+    robot = r.Robot(vec.Vec2d(0, 0), robo_graphics)
+    # ex = Example(master=root)
+
+    root.configure(bg='white')
     root.geometry("400x250")
     root.mainloop()
 
