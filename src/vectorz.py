@@ -14,3 +14,9 @@ class Vec2d:
         x = self.x + addend.x
         y = self.y + addend.y
         return Vec2d(x, y)
+
+    def scale(self, scale_factor):
+        scaled_x = self.x * scale_factor
+        scaled_y = self.y * scale_factor
+        return Vec2d(scaled_x, scaled_y)
+
