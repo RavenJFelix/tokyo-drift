@@ -4,7 +4,7 @@ class Vec2d:
     y = 0
 
     def __init__(self, x, y):
-        self.y = x
+        self.x = x
         self.y = y
 
     def __str__(self):
