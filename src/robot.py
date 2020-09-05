@@ -11,15 +11,18 @@ class Omniwheel:
     size = vec.Vec2d(100, 100)
     color = 'blue'
     velocity = vec.Vec2d(0, 0)
+    last_graphical_body_coords = vec.Vec2d(0, 0)
 
     def __init__(self, position, size, canvas):
         # It's fucking python, just use the kwargs reeee
+        print(self.position)
         self.position = position
         self.size = size
         self.canvas = canvas
         self.body_canvas_id = self.canvas.create_rectangle(0, 0, self.size.x,
                                                       self.size.y,
                                                       fill=self.color)
+        print(str(self.position) + "Hello")
         self.draw()
     '''
     def _generate_body_points(self):
@@ -39,15 +42,18 @@ class Omniwheel:
 
         return points
     '''
-    def get_canvas_body_coords(self):
-        return vec.Vec2d(self.position.x - self.size.x / 2.0,
-                         self.position.y - self.size.y / 2.0)
+    def calc_canvas_body_coords(center):
+        return vec.Vec2d(center.x - center.x / 2.0,
+                         center.y - center.y / 2.0)
 
     def draw(self):
-        canvas_body_coords = self.get_canvas_body_coords()
+        delta_motion = self.position + self.last_graphical_body_coords.inverse()
+        # canvas_body_coords = self.get_canvas_body_coords()
         self.canvas.move(self.body_canvas_id,
-                         canvas_body_coords.x,
-                         canvas_body_coords.y)
+                         delta_motion.x,
+                         delta_motion.y)
+
+        self.last_graphical_body_coords += delta_motion
         # Find a way for better documentation?
         # Probably just delegat from Robot Graphics
 
@@ -57,13 +63,14 @@ class Omniwheel:
 
     def physics_step(self, delta):
         # Physics based actions requiring a delta. Delta will be in seconds.
+        # print(self.position)
         self.position += self.velocity.scale(delta)
         return None
 
 
 class TwoOmniwheelBot:
     velocity = vec.Vec2d(0, 0)
-    angular_velocity = 0
+    tangential_velocity = 0
     wheel_size = vec.Vec2d(10, 10)
 
     def __init__(self, canvas, position=vec.Vec2d(0, 0), radius=10):
@@ -74,11 +81,46 @@ class TwoOmniwheelBot:
         wheel1_position = self.position + vec.Vec2d(-radius, 0)
         wheel2_position = self.position + vec.Vec2d(radius, 0)
 
-        wheel1 = Omniwheel(wheel1_position, self.wheel_size, canvas)
-        wheel2 = Omniwheel(wheel2_position, self.wheel_size, canvas)
+        wheel1 = Omniwheel(wheel1_position, self.wheel_size, self.canvas)
+        wheel2 = Omniwheel(wheel2_position, self.wheel_size, self.canvas)
 
-        self.omniwheels = [wheel1, wheel2]
+        self.omniwheels = []
+        self.omniwheels.append(wheel1)
+        self.omniwheels.append(wheel2)
 
     def draw(self):
+        print("Wheelbot draw")
         for wheel in self.omniwheels:
             wheel.draw()
+
+    def physics_step(self, delta):
+        # Replace with for 
+        wheel1 = self.omniwheels[0]
+        wheel2 = self.omniwheels[1]
+
+        wheel1_radius_vector = wheel1.position + self.position.inverse()
+        wheel2_radius_vector = wheel2.position + self.position.inverse()
+        # print(wheel2_radius_vector)
+
+        wheel1_rot_vec = wheel1_radius_vector.get_counterclockwise_orthog_unit()
+        wheel2_rot_vec = wheel2_radius_vector.get_counterclockwise_orthog_unit()
+
+        # print(wheel1_rot_vec)
+        wheel1_tang_vel = wheel1_rot_vec.scale(self.tangential_velocity)
+        wheel2_tang_vel = wheel2_rot_vec.scale(self.tangential_velocity)
+        # print(self.tangential_velocity)
+        # print(wheel1_tang_vel)
+
+        wheel1.velocity = wheel1_tang_vel
+        wheel2.velocity = wheel2_tang_vel
+        print(wheel1.position)
+
+        for wheel in self.omniwheels:
+            # print(wheel)
+            wheel.physics_step(delta)
+
+
+
+
+
+
