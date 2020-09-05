@@ -9,3 +9,8 @@ class Vec2d:
 
     def __str__(self):
         return '(' + str(self.x) + ", " + str(self.y) + ')'
+
+    def __add__(self, addend):
+        x = self.x + addend.x
+        y = self.y + addend.y
+        return Vec2d(x, y)
