@@ -38,15 +38,23 @@ class Robot:
 
         return points
     '''
+    def get_canvas_body_coords(self):
+        return vec.Vec2d(self.position.x - self.size.x / 2.0,
+                         self.position.y - self.size.y / 2.0)
 
     def draw(self):
-        self.canvas.move(self.body_canvas_id, self.position.x, self.position.y)
+        canvas_body_coords = self.get_canvas_body_coords()
+        self.canvas.move(self.body_canvas_id,
+                         canvas_body_coords.x,
+                         canvas_body_coords.y)
         # Find a way for better documentation?
         # Probably just delegat from Robot Graphics
 
     def step(self):
         # What the robot performs each simulation step
+        return None
 
     def physics_step(self, delta):
         # Physics based actions requiring a delta. Delta will be in seconds.
+        return None
         
