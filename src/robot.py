@@ -1,8 +1,9 @@
 import tkinter as tk
 import vectorz as vec
+import time as time
 
 
-class Robot:
+class Omniwheel:
     # Robot that can do stuff. Just ask.
     # Velocity is in pixels per second
 
@@ -56,5 +57,5 @@ class Robot:
 
     def physics_step(self, delta):
         # Physics based actions requiring a delta. Delta will be in seconds.
+        self.position += self.velocity.scale(delta)
         return None
-        
