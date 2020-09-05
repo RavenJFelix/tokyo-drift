@@ -52,7 +52,7 @@ class Robot:
 
     def step(self):
         # What the robot performs each simulation step
-        return None
+        self.position += self.velocity
 
     def physics_step(self, delta):
         # Physics based actions requiring a delta. Delta will be in seconds.
