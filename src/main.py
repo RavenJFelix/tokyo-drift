@@ -50,14 +50,19 @@ def main():
     root.wm_attributes("-topmost", 1)
     canv = tk.Canvas(root, width=500, height=500, bd=0, highlightthickness=0)
     canv.pack()
-    robot = r.Robot(vec.Vec2d(199, 100), vec.Vec2d(200, 290), canv)
+    robot = r.Robot(vec.Vec2d(50, 50), vec.Vec2d(100, 100), canv)
     print(robot.size)
     robot.draw()
+    robot.velocity = vec.Vec2d(0.00000000001, -0.000001)
 
     # print(robot._generate_body_points()[1])
     # ex = Example(master=root)
     root.update()
-    root.mainloop()
+
+    while 1:
+        robot.step()
+        robot.draw()
+        root.update()
 
 
 main()
