@@ -14,7 +14,6 @@ class Omniwheel:
 
     def __init__(self, position, size, canvas):
         # It's fucking python, just use the kwargs reeee
-        print(self.position)
         self.position = position
         self.size = size
         self.canvas = canvas
@@ -74,8 +73,6 @@ class TwoOmniwheelBot:
 
         wheel1_position = self.position + vec.Vec2d(-radius, 0)
         wheel2_position = self.position + vec.Vec2d(radius, 0)
-        print(wheel1_position)
-        print(wheel2_position)
 
         wheel1 = Omniwheel(wheel1_position, self.wheel_size, canvas)
         wheel2 = Omniwheel(wheel2_position, self.wheel_size, canvas)
