@@ -37,9 +37,6 @@ class Vec2d:
     def get_counterclockwise_orthog_unit(self):
         return self.get_counterclockwise_orthog().get_unit()
 
-
-
-
     def inverse(self):
         return Vec2d(-self.x, -self.y)
 
