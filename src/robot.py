@@ -14,13 +14,14 @@ class Omniwheel:
 
     def __init__(self, position, size, canvas):
         # It's fucking python, just use the kwargs reeee
-        print(size)
+        print(self.position)
         self.position = position
         self.size = size
         self.canvas = canvas
         self.body_canvas_id = self.canvas.create_rectangle(0, 0, self.size.x,
                                                       self.size.y,
                                                       fill=self.color)
+        self.draw()
     '''
     def _generate_body_points(self):
         # Returns a list of points. Currently assuming a rectangle. Upper lefft
@@ -59,3 +60,28 @@ class Omniwheel:
         # Physics based actions requiring a delta. Delta will be in seconds.
         self.position += self.velocity.scale(delta)
         return None
+
+
+class TwoOmniwheelBot:
+    velocity = vec.Vec2d(0, 0)
+    angular_velocity = 0
+    wheel_size = vec.Vec2d(10, 10)
+
+    def __init__(self, canvas, position=vec.Vec2d(0, 0), radius=10):
+        self.canvas = canvas
+        self.position = position
+        self.radius = radius
+
+        wheel1_position = self.position + vec.Vec2d(-radius, 0)
+        wheel2_position = self.position + vec.Vec2d(radius, 0)
+        print(wheel1_position)
+        print(wheel2_position)
+
+        wheel1 = Omniwheel(wheel1_position, self.wheel_size, canvas)
+        wheel2 = Omniwheel(wheel2_position, self.wheel_size, canvas)
+
+        self.omniwheels = [wheel1, wheel2]
+
+    def draw(self):
+        for wheel in self.omniwheels:
+            wheel.draw()
