@@ -4,6 +4,7 @@ import vectorz as vec
 
 class Robot:
     # Robot that can do stuff. Just ask.
+    # Velocity is in pixels per second
 
     position = vec.Vec2d(100, 100)
     size = vec.Vec2d(100, 100)
@@ -39,8 +40,13 @@ class Robot:
     '''
 
     def draw(self):
-
         self.canvas.move(self.body_canvas_id, self.position.x, self.position.y)
         # Find a way for better documentation?
         # Probably just delegat from Robot Graphics
 
+    def step(self):
+        # What the robot performs each simulation step
+
+    def physics_step(self, delta):
+        # Physics based actions requiring a delta. Delta will be in seconds.
+        
