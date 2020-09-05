@@ -110,10 +110,12 @@ class TwoOmniwheelBot:
         wheel2_tang_vel = wheel2_rot_vec.scale(self.tangential_velocity)
         # print(self.tangential_velocity)
         # print(wheel1_tang_vel)
-
-        wheel1.velocity = wheel1_tang_vel
-        wheel2.velocity = wheel2_tang_vel
+        print(self.velocity)
+        wheel1.velocity = wheel1_tang_vel + self.velocity
+        wheel2.velocity = wheel2_tang_vel + self.velocity
         print(wheel1.position)
+
+        self.position += self.velocity.scale(delta)
 
         for wheel in self.omniwheels:
             # print(wheel)
