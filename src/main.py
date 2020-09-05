@@ -70,7 +70,7 @@ def main():
     root.update()
     last_time = time.process_time()
     wheelbot.tangential_velocity = 50
-    wheelbot.velocity = vec.Vec2d(50, 0)
+    wheelbot.velocity = vec.Vec2d(50, 50)
     # wheelbot.physics_step(1)
     while 1:
         current_time = time.process_time()
