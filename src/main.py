@@ -1,6 +1,7 @@
 import tkinter as tk
 import robot as r
 import vectorz as vec
+import time as time
 
 
 # class Application(tk.Frame):
@@ -43,6 +44,7 @@ import vectorz as vec
 #        canvas.pack(fill=tk.BOTH, expand=1)
 
 
+
 def main():
     root = tk.Tk()
     root.title("Fucking robot awesome")
@@ -50,19 +52,38 @@ def main():
     root.wm_attributes("-topmost", 1)
     canv = tk.Canvas(root, width=500, height=500, bd=0, highlightthickness=0)
     canv.pack()
-    robot = r.Robot(vec.Vec2d(50, 50), vec.Vec2d(100, 100), canv)
-    print(robot.size)
-    robot.draw()
-    robot.velocity = vec.Vec2d(0.00000000001, -0.000001)
+    #robot = r.Omniwheel(vec.Vec2d(50, 50), vec.Vec2d(100, 100), canv)
+
+    wheelbot = r.TwoOmniwheelBot(canv, vec.Vec2d(50, 50))
+    omni = r.Omniwheel(vec.Vec2d(10, 10), vec.Vec2d(10, 10), canv)
+    omni.draw()
+    print(vec.Vec2d(3, 4).get_magnitude())
+    print(vec.Vec2d(3, 4).get_unit())
+    print(vec.Vec2d(3, 4).get_counterclockwise_orthog())
+    print(vec.Vec2d(3, 4).get_counterclockwise_orthog_unit())
+    print(vec.Vec2d(3, 4).get_unit().get_magnitude())
+    # robot.velocity = vec.Vec2d(1,0)
 
     # print(robot._generate_body_points()[1])
     # ex = Example(master=root)
+    # wheelbot.draw()
     root.update()
-
+    last_time = time.process_time()
+    wheelbot.tangential_velocity = 10
+    # wheelbot.physics_step(1)
     while 1:
-        robot.step()
-        robot.draw()
+        current_time = time.process_time()
+        elapsed_time = current_time - last_time
+        last_time = current_time
+
+        wheelbot.physics_step(elapsed_time)
+        # wheelbot.draw()
+        # wheelbot.omniwheels[0].draw()
+        # robot.physics_step(elapsed_time)
+        # robot.draw()
+        wheelbot.draw()
         root.update()
+    root.mainloop()
 
 
 main()
